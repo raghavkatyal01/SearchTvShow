@@ -1,0 +1,20 @@
+
+1. make space in State for new data.
+    a. add new reducer(s) and define state.
+    b. Or add keys to existing state in reducer(s).
+
+ 2. Define action(s) and action creator (s)
+ 3. mapDispatchToProp and accordingly add props to components .Also  Call the Funtion (s) recieved in the props(Instead of Dispatch Function From redux)
+ 4. Dispatch action (s)
+
+--->Testing Step 1 Check in redux devtools that right action with data is getting dispatched
+
+ 5. add switch case(s) to reducer and/or add saga method.
+
+ --->Testing Step 2
+
+
+ 6. add selector(s)
+ 7. mapStateToProps(Instead of useSelector Function)
+
+  --->Testing Step 3
