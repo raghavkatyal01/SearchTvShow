@@ -1,21 +1,17 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import Searchbar from '../Components/SearchBar'
 import TvSowCard from '../Components/TvSowCard'
-import { getShowList } from '../Api'
-import { Show } from '../Models/Show'
+
 import { showLoadedAction, showQueryAction } from '../Redux/Action/showLoadedAction'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps, ConnectProps } from 'react-redux'
 import { MainState } from '../Redux/Store'
-import { showsQuerySelector, showsSelector } from '../Redux/Selectors/ShowsSelector'
+import { showsLoadingSelector, showsQuerySelector, showsSelector } from '../Redux/Selectors/ShowsSelector'
+import Loading from '../Components/Loading'
 
-interface TvShowListProps {
+type TvShowListProps =Connected
 
-  query:string,
-  shows:Show[],
-  queryLoaded:(q:string)=>void
-}
 
-const TvShowList: FC<TvShowListProps> = ({queryLoaded,shows,query}) => {
+const TvShowList: FC<TvShowListProps> = ({queryLoaded,shows,query,loading}) => {
     // const [showList,setShowList]=useState<Show[]>([]);
     // const [query,setQuery]=useState<string>("");
     // useEffect(()=>{
@@ -24,11 +20,14 @@ const TvShowList: FC<TvShowListProps> = ({queryLoaded,shows,query}) => {
     //         showLoaded(res)
     //     })
     // },[query])
-    console.log(shows)
+    
   return (
     <>
     <div className=' min-w-full min-h-full'>
-    <Searchbar value={query} onChange={(e:ChangeEvent<HTMLInputElement>)=>queryLoaded(e.target.value)}/>
+
+    <div className='flex flex-row gap-2'><Searchbar value={query} onChange={(e:ChangeEvent<HTMLInputElement>)=>queryLoaded(e.target.value)}/>
+      {loading&&<Loading className="text-md"/>}
+    </div>
     <div className='bg-gray-300 flex flex-wrap mx-4 justify-center '>
     {shows.length!=0? <>{shows.map((item:any)=>{
            return <TvSowCard key={item.id} show={item}/>
@@ -45,9 +44,12 @@ const mapDispatchToProps={
   queryLoaded:showQueryAction
 }
 const mapStateToProps=(state:MainState)=> {
- return {query:showsQuerySelector(state), shows:showsSelector(state) }
+ return {query:showsQuerySelector(state), shows:showsSelector(state),
+  loading:showsLoadingSelector(state)
+  }
 }
-
-export default connect(mapStateToProps,mapDispatchToProps) (TvShowList)
+const connector=connect(mapStateToProps,mapDispatchToProps)
+type Connected=ConnectedProps<typeof connector>
+export default  connector(TvShowList)
 
 

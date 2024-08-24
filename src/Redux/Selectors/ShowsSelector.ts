@@ -11,9 +11,22 @@ export const showsQuerySelector=createSelector(
 
 )
 export const showsMapSelector=createSelector(
-    showStateSelector,(showState)=>showState.show
+    
+    showStateSelector,(showState)=>{
+        console.log("select data finalll",showState.show)
+        return showState.show}
 
 )
-export const showsSelector=createSelector(showsMapSelector,(show)=>{
-   return Object.keys(show).map((id:string)=>show[+id] )
+
+export const showsMapQuerytoIdSelector=createSelector(
+    showStateSelector,(showState)=>showState.query_shows
+
+)
+
+export const showsLoadingSelector=createSelector(
+    showStateSelector,(showState)=>showState.loading
+
+)
+export const showsSelector=createSelector(showsMapSelector,showsQuerySelector,showsMapQuerytoIdSelector,(showMap,showQuery,showsMapQuerytoId)=>{
+   return showsMapQuerytoId[showQuery]? showsMapQuerytoId[showQuery].map((item)=>showMap[+item]):[]
 })
