@@ -6,7 +6,8 @@ import { showDetailLoadedAction, showLoadedAction } from "../Action/showLoadedAc
 
 export function* fetchShows(action:Action):Generator<any,any,any>{
     const shows=yield call(getShowList,action.payload)
-    yield put(showLoadedAction(shows))
+    
+    yield put(showLoadedAction(shows.show,shows.cast))
 }
 export function* fetchShowsDetail(action:Action):Generator<any,any,any>{
     const show=yield call(getSingleShow,action.payload)
