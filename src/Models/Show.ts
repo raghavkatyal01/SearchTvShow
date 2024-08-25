@@ -1,14 +1,14 @@
 
 
 export type Show={
-    id:string;
+    id:number;
     image?:{
         medium:string;
         original:string;
     };
     name:string;
-    genres:string[];
-    rating:{avverage?:number};
+    genres?:string[];
+    rating:{average?:number};
     summary?:string;
 
 }
