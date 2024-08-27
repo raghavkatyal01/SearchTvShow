@@ -26,8 +26,9 @@ const TvShowList: FC<TvShowListProps> = ({queryLoaded,shows,query,loading,showCa
       {loading&&<Loading className="text-md"/>}
     </div>
     <div className='bg-gray-300 flex flex-wrap mx-4 justify-center '>
+      
     {shows.length!=0? <>{shows.map((item:any)=>{
-           return <TvSowCard key={item.id} cast={showCast[item.id]} show={item}/>
+           return <TvSowCard key={item.id } id={item.id} cast={showCast[item.id]} show={item}/>
         })
         }</>:<div className='text-xl h-full'>No Product Found</div>}
 

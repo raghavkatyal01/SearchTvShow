@@ -11,7 +11,8 @@ import { Cast } from "../../Models/Cast";
     query_shows:{[q:string]:number[]},
     loading:boolean,
     castShow: { [key: number]: Cast[] };
-    showDropdown: boolean;
+    showDropdown: {[key:number]:boolean};
+    
   }
   const initialValue:State={
     show:{},
@@ -19,7 +20,8 @@ import { Cast } from "../../Models/Cast";
     query_shows:{},
     loading:false,
     castShow:{},
-    showDropdown:false,
+   
+    showDropdown:{},
   }
   
   
@@ -32,7 +34,7 @@ import { Cast } from "../../Models/Cast";
             
             const cast=action.payload.cast as {}
             draft.castShow=cast
-            console.log("cst",cast)
+           
             const showEntity=new schema.Entity("show")
             const normalizedData=normalize(shows,[showEntity])
             draft.query_shows[draft.query]=normalizedData.result
@@ -44,7 +46,7 @@ import { Cast } from "../../Models/Cast";
             return produce(State,(draft)=>{
               const query=action.payload as string
               draft.query=query
-             
+             draft.loading=true;
             })
           case LOAD_SHOW_ACTION:
             return produce(State,(draft)=>{
@@ -59,10 +61,13 @@ import { Cast } from "../../Models/Cast";
                 
               })
               case TOGGLE_DROPDOWN:
-                return {
-                  ...State,
-                  showDropdown: !State.showDropdown,
-                };
+                const dropdownKey = action.payload as number;
+                console.log("k", dropdownKey);
+                
+                return produce(State, (draft) => {
+                  draft.showDropdown[dropdownKey] = !State.showDropdown[dropdownKey];
+                });
+              
           default:
               return State;
       }

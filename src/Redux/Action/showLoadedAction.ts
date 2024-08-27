@@ -37,8 +37,10 @@ export const showQueryAction:ActionCreat<string>=(query)=>({
 
 export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
 
-export const toggleDropdown= () => ({
+export const toggleDropdown:ActionCreat<number>= (id:number) => ({
+    
   type: TOGGLE_DROPDOWN,
+  payload:id,
 });
 
 
