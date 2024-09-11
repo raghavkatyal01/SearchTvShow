@@ -2,11 +2,12 @@ import { ChangeEvent, FC} from 'react'
 import Searchbar from '../Components/SearchBar'
 import TvSowCard from '../Components/TvSowCard'
 
-import {  showQueryAction } from '../Redux/Action/showLoadedAction'
 import { connect, ConnectedProps } from 'react-redux'
 import { MainState } from '../Redux/Store'
 import {  showMapCast, showsLoadingSelector, showsQuerySelector, showsSelector } from '../Redux/Selectors/ShowsSelector'
 import Loading from '../Components/Loading'
+import { showQueryAction } from '../Redux/Slices/Show'
+import React from 'react'
 
 
 type TvShowListProps =Connected
@@ -26,6 +27,7 @@ const TvShowList: FC<TvShowListProps> = ({queryLoaded,shows,query,loading,showCa
       {loading&&<Loading className="text-md"/>}
     </div>
     <div className='bg-gray-300 flex flex-wrap mx-4 justify-center '>
+      
     {shows.length!=0? <>{shows.map((item:any)=>{
            return <TvSowCard key={item.id} cast={showCast[item.id]} show={item}/>
         })

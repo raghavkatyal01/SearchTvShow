@@ -5,7 +5,6 @@ import { withRouter, WithRouterProps } from '../Hoc/withRouter'
 import { MainState } from '../Redux/Store'
 import { connect, ConnectedProps } from 'react-redux'
 
-import {  loadShowAction, showDetailLoadedAction } from '../Redux/Action/showLoadedAction'
 
 import {  showsLoadingSelector, showsMapSelector } from '../Redux/Selectors/ShowsSelector'
 import Loading from '../Components/Loading'
@@ -13,7 +12,10 @@ import Loading from '../Components/Loading'
 import ImageNotFound from '../Components/ImageNotFound'
 import { allCastSelector, castLoadingSelector } from '../Redux/Selectors/CastSelector'
 import ShowCard from '../Components/CardDetail'
-import { loadCastShowDetailAction } from '../Redux/Action/CastAction'
+import { loadShowAction, showDetailLoadedAction } from '../Redux/Slices/Show'
+import { loadCastShowDetailAction } from '../Redux/Slices/Cast'
+import React from 'react'
+
 
 
 
@@ -28,7 +30,6 @@ const ShowDetail: FC<ShowDetailProps> = ({params,showDetail,loadShowAction,loadC
    loadCastShowDetailAction(id)
   },[id])
 
-  console.log("l",castloading);
   
 if(!showDetail){
   return (<Loading/>)

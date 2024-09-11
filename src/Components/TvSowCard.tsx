@@ -1,22 +1,22 @@
 
-
 import { FC, useState } from 'react';
 import { Show } from '../Models/Show';
 import { Link } from 'react-router-dom';
 import ImageNotFound from './ImageNotFound';
 import { Cast } from '../Models/Cast';
 
-interface TvSowCardProps {
+
+
+type TvSowCardProps =  {
   show: Show;
   cast: Cast[];
-  
 }
 
 const TvSowCard: FC<TvSowCardProps> = ({ show, cast }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [localDropdown, setLocalDropdown] = useState(false);
 
   const handleToggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+    setLocalDropdown(prevState => !prevState);
   };
 
   return (
@@ -32,7 +32,7 @@ const TvSowCard: FC<TvSowCardProps> = ({ show, cast }) => {
         <p className="p-2 text-sm">{show.summary}</p>
 
         <div className="flex -space-x-4 mt-4">
-          {cast.slice(0, 3).map((person, index) => (
+          {cast && cast.slice(0, 3).map((person, index) => (
             <img
               key={index}
               src={person.image?.medium}
@@ -41,7 +41,7 @@ const TvSowCard: FC<TvSowCardProps> = ({ show, cast }) => {
               title={person.name}
             />
           ))}
-          {cast.length > 3 && (
+          {cast && cast.length > 3 && (
             <div
               className="w-10 h-10 rounded-full border-2 border-white bg-gray-200 text-gray-700 flex items-center justify-center text-sm font-medium cursor-pointer"
               onClick={handleToggleDropdown}
@@ -51,9 +51,9 @@ const TvSowCard: FC<TvSowCardProps> = ({ show, cast }) => {
           )}
         </div>
 
-        {showDropdown && (
+        {localDropdown && (
           <div className="mt-2 bg-white shadow-md rounded-lg p-2">
-            {cast.slice(3).map((person, index) => (
+            {cast?.length > 0 && cast.slice(3).map((person, index) => (
               <div key={index} className="flex items-center mt-2">
                 <img
                   src={person.image?.medium}
@@ -77,5 +77,7 @@ const TvSowCard: FC<TvSowCardProps> = ({ show, cast }) => {
     </>
   );
 };
+
+
 
 export default TvSowCard;

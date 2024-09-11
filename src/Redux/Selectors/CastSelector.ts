@@ -6,7 +6,7 @@ const CastSelector=(state:MainState)=>{
 }
 
  const castMapSelector=createSelector(CastSelector,(Cast)=>{
-   return Cast.cast
+   return Cast.entities
 })
 export const castLoadingSelector=createSelector(CastSelector,(cast)=>{
     return cast.loading;

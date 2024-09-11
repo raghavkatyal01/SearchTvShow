@@ -13,8 +13,8 @@ export const showsQuerySelector=createSelector(
 export const showsMapSelector=createSelector(
     
     showStateSelector,(showState)=>{
-        console.log("select data finalll",showState.show)
-        return showState.show}
+
+        return showState.entities}
 
 )
 
